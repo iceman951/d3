@@ -41,14 +41,23 @@ class Stateful {
   set state(State newState) => _state = newState;
 
   void set(hours, minutes) {
-    print("Set time :");
-    _state.handler(this);
-    inc(hours, minutes);
+    print("Set the time : //setState");
+    // _state.handler(this);
+    var increment = stdin.readLineSync();
+    String commandInc = increment.toString();
+    if (commandInc == 'inc') {
+      inc(hours, minutes);
+    }
   }
 
   void inc(hours, minutes) {
     var hr = (int.parse(hours) + 1) % 24;
-    print(hr);
+    print("$hr, $minutes");
+  }
+
+  void on() {
+    print("switch");
+    _state.handler(this);
   }
 }
 
@@ -60,7 +69,7 @@ void main() {
     List<String> commandList = line.toString().split(' ');
 
     if (commandList[0] == 'on' && commandList[1] != 0 && commandList[2] != 0) {
-      //idle
+      clockState.on();
       var hours = commandList[1];
       var minutes = commandList[2];
 
@@ -68,6 +77,9 @@ void main() {
 
       var line = stdin.readLineSync();
       List<String> lineList = line.toString().split(' ');
+      if (commandList[0] == 'set') {
+        clockState.set(hours, minutes);
+      }
     }
   }
 }
