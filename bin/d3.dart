@@ -70,7 +70,8 @@ void main() {
     var line = stdin.readLineSync();
     List<String> commandList = line.toString().split(' ');
     clockState.on();
-    if (commandList[0] == 'on' && commandList[1] != 0 && commandList[2] != 0) {
+
+    if (commandList[1] != "0" && commandList[2] != "0") {
       hours = commandList[1];
       minutes = commandList[2];
 
@@ -81,9 +82,8 @@ void main() {
       if (commandList[0] == 'set') {
         clockState.set(hours, minutes);
       }
-    }
-    if (commandList[0] == 'set') {
-      clockState.set(hours, minutes);
+    } else {
+      print("hr 0 min 0");
     }
   }
 }
