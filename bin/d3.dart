@@ -44,8 +44,8 @@ class Stateful {
     print("Set the time : //setState");
     // _state.handler(this);
     var increment = stdin.readLineSync();
-    String commandInc = increment.toString();
-    if (commandInc == 'inc') {
+    String command = increment.toString();
+    if (command == 'inc') {
       inc(hours, minutes);
     }
   }
