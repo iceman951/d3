@@ -41,8 +41,6 @@ class Stateful {
   set state(State newState) => _state = newState;
 
   void set(hours, minutes) {
-    print("Set the time : //setState");
-    // _state.handler(this);
     var increment = stdin.readLineSync();
     String command = increment.toString();
     if (command == 'inc') {
