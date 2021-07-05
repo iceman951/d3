@@ -28,7 +28,7 @@ class StatusOff implements State {
 
   @override
   String toString() {
-    return "off";
+    return "status off ,please on: (on hr min)";
   }
 }
 
@@ -63,15 +63,16 @@ class Stateful {
 
 void main() {
   var clockState = Stateful(StatusOff());
+  var hours;
+  var minutes;
   while (true) {
     print("clock ${clockState.state}");
     var line = stdin.readLineSync();
     List<String> commandList = line.toString().split(' ');
-
+    clockState.on();
     if (commandList[0] == 'on' && commandList[1] != 0 && commandList[2] != 0) {
-      clockState.on();
-      var hours = commandList[1];
-      var minutes = commandList[2];
+      hours = commandList[1];
+      minutes = commandList[2];
 
       print("Current time: ${hours} : ${minutes}");
 
@@ -80,6 +81,9 @@ void main() {
       if (commandList[0] == 'set') {
         clockState.set(hours, minutes);
       }
+    }
+    if (commandList[0] == 'set') {
+      clockState.set(hours, minutes);
     }
   }
 }
