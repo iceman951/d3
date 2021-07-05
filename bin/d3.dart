@@ -8,18 +8,6 @@ abstract class State {
   String toString();
 }
 
-class StatusOff implements State {
-  handler(Stateful context) {
-    print(" ");
-    context.state = StatusOn();
-  }
-
-  @override
-  String toString() {
-    return "off";
-  }
-}
-
 class StatusOn implements State {
   handler(Stateful context) {
     print("");
@@ -32,6 +20,18 @@ class StatusOn implements State {
   }
 }
 
+class StatusOff implements State {
+  handler(Stateful context) {
+    print("");
+    context.state = StatusOn();
+  }
+
+  @override
+  String toString() {
+    return "off";
+  }
+}
+
 class Stateful {
   State _state;
 
@@ -40,24 +40,34 @@ class Stateful {
   State get state => _state;
   set state(State newState) => _state = newState;
 
-  void set(Float hours, Float minutes) {
-    print("settttt");
+  void set(hours, minutes) {
+    print("Set time :");
     _state.handler(this);
+    inc(hours, minutes);
   }
 
-  void increaseMinutes(Float hours, Float minutes) {
-    print("set_clock");
-    _state.handler(this);
+  void inc(hours, minutes) {
+    var hr = (int.parse(hours) + 1) % 24;
+    print(hr);
   }
 }
 
-void main(List<String> arguments) {
+void main() {
   var clockState = Stateful(StatusOff());
-  print("time");
-  print('command: ');
   while (true) {
-    print('command: ');
+    print("clock ${clockState.state}");
     var line = stdin.readLineSync();
     List<String> commandList = line.toString().split(' ');
+
+    if (commandList[0] == 'on' && commandList[1] != 0 && commandList[2] != 0) {
+      //idle
+      var hours = commandList[1];
+      var minutes = commandList[2];
+
+      print("Current time: ${hours} : ${minutes}");
+
+      var line = stdin.readLineSync();
+      List<String> lineList = line.toString().split(' ');
+    }
   }
 }
